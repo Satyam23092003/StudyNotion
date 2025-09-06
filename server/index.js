@@ -96,9 +96,9 @@ app.get("/", (req, res) => {
 });
 
 // Listening to the server
-// app.listen(PORT, () => {
-// 	console.log(`App is listening at ${PORT}`);
-// });
+app.listen(PORT, () => {
+	console.log(`App is listening at ${PORT}`);
+});
 console.log("🔥 Backend started - this should show on every restart");
 
 // End of code.
