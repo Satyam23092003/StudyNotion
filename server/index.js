@@ -12,7 +12,6 @@ const cors = require("cors");
 const { cloudinaryConnect } = require("./config/cloudinary");
 const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
-const path = require("path");
 
 // Load env variables
 dotenv.config();
@@ -30,7 +29,7 @@ app.use(cookieParser());
 // Allowed origins for CORS
 const allowedOrigins = [
       "http://localhost:3000",
-      "https://study-notion-web-app-frontend.vercel.app", // replace with your actual frontend Render URL
+      "https://study-notion-web-app-frontend.vercel.app", // replace with your actual frontend URL
 ];
 
 app.use(
@@ -63,13 +62,13 @@ app.use("/api/v1/course", courseRoutes);
 app.use("/api/v1/payment", paymentRoutes);
 app.use("/api/v1/reach", contactUsRoute);
 
-// Serve frontend only in production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
-  });
-}
+// Remove frontend serving for pure backend deployment
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../client/build")));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+//   });
+// }
 
 // Testing route
 app.get("/", (req, res) => {
