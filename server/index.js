@@ -27,25 +27,44 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Allowed origins for CORS
-const allowedOrigins = [
-      "http://localhost:3000",
-      "https://study-notion-web-app-frontend.vercel.app", // replace with your actual frontend URL
+// const allowedOrigins = [
+//       "http://localhost:3000",
+//       "https://study-notion-web-app-frontend.vercel.app", // replace with your actual frontend URL
       
+// ];
+
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     credentials: true,
+//   })
+// );
+
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://study-notion-web-app-frontend.vercel.app", // your actual frontend URL
 ];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
-
+// ✅ CORS middleware
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+}));
 app.use(
   fileUpload({
     useTempFiles: true,
