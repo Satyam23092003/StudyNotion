@@ -30,6 +30,7 @@ app.use(cookieParser());
 const allowedOrigins = [
       "http://localhost:3000",
       "https://study-notion-web-app-frontend.vercel.app", // replace with your actual frontend URL
+      
 ];
 
 app.use(
